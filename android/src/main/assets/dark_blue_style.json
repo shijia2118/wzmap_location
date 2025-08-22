@@ -1,0 +1,1755 @@
+{
+    "version": 8,
+    "metadata": {"maputnik:renderer": "mbgljs"},
+    "sources": {
+      "wayz_vector": {
+        "type": "vector",
+        "tiles": [
+          "https://api.newayz.com/maps/tilestream/v1/layers/landcover-china-20210415/tiles/{z}/{x}/{y}?access_key=He1eQCdYAI1vpZBlv9dhFfIXw8G2H9xK"
+        ],
+        "minzoom": 1,
+        "maxzoom": 16
+      }
+    },
+    "sprite": "https://location-dev.newayz.com/maps/sprites/aimap/dark-v1/sprite",
+    "glyphs": "https://location-dev.newayz.com/maps/fonts/{fontstack}/{range}.pbf",
+    "layers": [
+      {
+        "id": "background",
+        "type": "background",
+        "metadata": {"wayzEditor:comment": "背景", "parent": "背景", "level": 1},
+        "layout": {"visibility": "visible"},
+        "paint": {"background-color": "#153345"}
+      },
+      {
+        "id": "sea",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "海洋", "parent": "水系", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "sea",
+        "minzoom": 1,
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#213E56", "fill-opacity": 1}
+      },
+      {
+        "id": "world_base",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "全球背景", "parent": "行政面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "world_base",
+        "minzoom": 1,
+        "maxzoom": 3,
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#B2B2B2", "fill-opacity": 1}
+      },
+      {
+        "id": "island",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "岛屿", "parent": "岛屿", "level": 1},
+        "source": "wayz_vector",
+        "source-layer": "island",
+        "minzoom": 3,
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#153345", "fill-opacity": 1}
+      },
+      {
+        "id": "country",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "国家", "parent": "行政面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "country",
+        "minzoom": 1,
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#153345", "fill-opacity": 1}
+      },
+      {
+        "id": "province",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "省份", "parent": "行政面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "province",
+        "minzoom": 3,
+        "maxzoom": 11,
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#153345", "fill-opacity": 1}
+      },
+      {
+        "id": "city",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "城市", "parent": "行政面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "city",
+        "minzoom": 11,
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#153345", "fill-opacity": 1}
+      },
+      {
+        "id": "bounding_area_hotel",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "酒店", "parent": "区域面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "bounding_area",
+        "minzoom": 13,
+        "filter": [
+          "all",
+          [">=", "category_id", 10000],
+          ["<", "category_id", 10200]
+        ],
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#1F394F", "fill-opacity": 1}
+      },
+      {
+        "id": "bounding_area_residential",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "住宅小区", "parent": "区域面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "bounding_area",
+        "minzoom": 13,
+        "filter": [
+          "all",
+          [">=", "category_id", 10200],
+          ["<", "category_id", 20000]
+        ],
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#1F394F", "fill-opacity": 1}
+      },
+      {
+        "id": "bounding_area_industrial",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "企业商务园区", "parent": "区域面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "bounding_area",
+        "minzoom": 13,
+        "filter": [
+          "all",
+          [">=", "category_id", 20000],
+          ["<", "category_id", 30000]
+        ],
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#0F293C", "fill-opacity": 1}
+      },
+      {
+        "id": "bounding_area_subway",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "地铁设施", "parent": "区域面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "bounding_area",
+        "minzoom": 13,
+        "filter": ["==", "category_id", 50202],
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#91A4AA", "fill-opacity": 1}
+      },
+      {
+        "id": "bounding_area_park_lot",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "停车场", "parent": "区域面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "bounding_area",
+        "minzoom": 13,
+        "filter": ["==", "category_id", 50900],
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#0F293C", "fill-opacity": 1}
+      },
+      {
+        "id": "bounding_area_business",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "商业场所", "parent": "区域面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "bounding_area",
+        "minzoom": 13,
+        "filter": [
+          "all",
+          [">=", "category_id", 30000],
+          ["<", "category_id", 50000]
+        ],
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#1F394F", "fill-opacity": 1}
+      },
+      {
+        "id": "bounding_area_transportation_hub",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "交通枢纽", "parent": "区域面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "bounding_area",
+        "minzoom": 13,
+        "filter": [
+          "all",
+          [">=", "category_id", 50000],
+          ["<", "category_id", 50900],
+          ["!=", "category_id", 50202]
+        ],
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#0F293C", "fill-opacity": 1}
+      },
+      {
+        "id": "bounding_area_sports",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "运动场所", "parent": "区域面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "bounding_area",
+        "minzoom": 13,
+        "filter": [
+          "all",
+          [">=", "category_id", 70000],
+          ["<", "category_id", 70700]
+        ],
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#0F293C", "fill-opacity": 1}
+      },
+      {
+        "id": "bounding_area_scenic",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "景区", "parent": "区域面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "bounding_area",
+        "minzoom": 13,
+        "filter": [
+          "all",
+          [">=", "category_id", 70700],
+          ["<", "category_id", 70900]
+        ],
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#153345", "fill-opacity": 1}
+      },
+      {
+        "id": "bounding_area_science",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "科教", "parent": "区域面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "bounding_area",
+        "minzoom": 13,
+        "filter": [
+          "all",
+          [">=", "category_id", 80000],
+          ["<", "category_id", 80500]
+        ],
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#13283a", "fill-opacity": 1}
+      },
+      {
+        "id": "bounding_area_culture",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "文化", "parent": "区域面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "bounding_area",
+        "minzoom": 13,
+        "filter": [
+          "all",
+          [">=", "category_id", 80500],
+          ["<", "category_id", 81500]
+        ],
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#1F394F", "fill-opacity": 1}
+      },
+      {
+        "id": "bounding_area_healthcare",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "医疗卫生", "parent": "区域面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "bounding_area",
+        "minzoom": 13,
+        "filter": [
+          "all",
+          [">=", "category_id", 90000],
+          ["<", "category_id", 100000]
+        ],
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#1F394F", "fill-opacity": 1}
+      },
+      {
+        "id": "bounding_area_government",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "国家政府", "parent": "区域面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "bounding_area",
+        "minzoom": 13,
+        "filter": [
+          "all",
+          [">=", "category_id", 100000],
+          ["<", "category_id", 110000]
+        ],
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#1F394F", "fill-opacity": 1}
+      },
+      {
+        "id": "bounding_area_public_facilities",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "公共设施", "parent": "区域面", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "bounding_area",
+        "minzoom": 13,
+        "filter": [
+          "all",
+          [">=", "category_id", 110000],
+          ["<", "category_id", 120000]
+        ],
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#EEECE7", "fill-opacity": 1}
+      },
+      {
+        "id": "greenbelt",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "绿地", "parent": "绿地", "level": 1},
+        "source": "wayz_vector",
+        "source-layer": "greenbelt",
+        "minzoom": 8,
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#1b4333", "fill-opacity": 1}
+      },
+      {
+        "id": "water_lake",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "湖泊", "parent": "水系", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "lake",
+        "minzoom": 5,
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#213E56", "fill-opacity": 1}
+      },
+      {
+        "id": "water_river",
+        "type": "fill",
+        "metadata": {"wayzEditor:comment": "河流", "parent": "水系", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "river",
+        "minzoom": 3,
+        "layout": {"visibility": "visible"},
+        "paint": {"fill-color": "#213E56", "fill-opacity": 1}
+      },
+      {
+        "id": "boundary_province",
+        "type": "line",
+        "metadata": {"wayzEditor:comment": "省界线", "parent": "界线", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "boundary",
+        "minzoom": 3,
+        "maxzoom": 10,
+        "filter": ["==", "kind", "province"],
+        "layout": {"visibility": "visible"},
+        "paint": {"line-width": 0.3, "line-color": "#9EA0A2"}
+      },
+      {
+        "id": "boundary_uncertain_province",
+        "type": "line",
+        "metadata": {"wayzEditor:comment": "未定省界线", "parent": "界线", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "boundary",
+        "minzoom": 3,
+        "maxzoom": 10,
+        "filter": ["==", "kind", "uncertain_province"],
+        "layout": {"visibility": "visible"},
+        "paint": {
+          "line-width": 0.3,
+          "line-color": "#9EA0A2",
+          "line-dasharray": [2, 8]
+        }
+      },
+      {
+        "id": "boundary_city",
+        "type": "line",
+        "metadata": {"wayzEditor:comment": "城市界线", "parent": "界线", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "boundary",
+        "minzoom": 10,
+        "filter": ["==", "kind", "city"],
+        "layout": {"visibility": "visible"},
+        "paint": {"line-width": 0.5, "line-color": "#9EA0A2"}
+      },
+      {
+        "id": "boundary_special_admin",
+        "type": "line",
+        "metadata": {"wayzEditor:comment": "特别行政区边界", "parent": "界线", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "boundary",
+        "minzoom": 3,
+        "maxzoom": 10,
+        "filter": ["==", "kind", "special_admin"],
+        "layout": {"visibility": "visible"},
+        "paint": {
+          "line-width": 1,
+          "line-color": "#9EA0A2",
+          "line-dasharray": [2, 3]
+        }
+      },
+      {
+        "id": "boundary_uncertain_country",
+        "type": "line",
+        "metadata": {"wayzEditor:comment": "未定国界线", "parent": "界线", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "boundary",
+        "minzoom": 1,
+        "maxzoom": 10,
+        "filter": ["==", "kind", "uncertain_country"],
+        "layout": {"visibility": "visible"},
+        "paint": {
+          "line-width": 1,
+          "line-color": "#9EA0A2",
+          "line-dasharray": [2, 3]
+        }
+      },
+      {
+        "id": "boundary_country",
+        "type": "line",
+        "metadata": {"wayzEditor:comment": "国界线", "parent": "界线", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "boundary",
+        "minzoom": 1,
+        "maxzoom": 10,
+        "filter": ["==", "kind", "country"],
+        "layout": {"visibility": "visible"},
+        "paint": {"line-width": 1, "line-color": "#377093"}
+      },
+      {
+        "id": "transitline_railway_case",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "铁路描边",
+          "parent": "transitline_railway_bg",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "transitline",
+        "minzoom": 6,
+        "filter": ["==", "kind", "railway"],
+        "paint": {
+          "line-color": "rgba(8, 43, 63, 1)",
+          "line-gap-width": ["interpolate", ["linear"], ["zoom"], 6, 2, 18, 3]
+        }
+      },
+      {
+        "id": "transitline_railway_bg",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "铁路",
+          "parent": "轨道线路",
+          "level": 2,
+          "children": [
+            "transitline_railway_dasharray",
+            "transitline_railway_name"
+          ]
+        },
+        "source": "wayz_vector",
+        "source-layer": "transitline",
+        "minzoom": 6,
+        "filter": ["==", "kind", "railway"],
+        "paint": {
+          "line-color": "rgba(21, 56, 69, 1)",
+          "line-width": ["interpolate", ["linear"], ["zoom"], 6, 2, 18, 3]
+        }
+      },
+      {
+        "id": "transitline_railway_dasharray",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "铁路填充",
+          "parent": "transitline_railway_bg",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "transitline",
+        "minzoom": 6,
+        "filter": ["==", "kind", "railway"],
+        "layout": {"visibility": "visible"},
+        "paint": {
+          "line-color": "rgba(51, 96, 125, 1)",
+          "line-width": ["interpolate", ["linear"], ["zoom"], 6, 2, 18, 3],
+          "line-dasharray": [3, 3]
+        }
+      },
+      {
+        "id": "edge_footway_case",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "步行道路描边",
+          "parent": "edge_footway",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 16,
+        "filter": ["==", "kind", "footway"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "#DDDDDD",
+          "line-gap-width": ["interpolate", ["linear"], ["zoom"], 15, 0.1, 18, 2],
+          "line-dasharray": [2, 3]
+        }
+      },
+      {
+        "id": "edge_service_case",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "目的地道路描边",
+          "parent": "edge_service",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 15,
+        "filter": ["==", "rank", "service"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "#252D32",
+          "line-gap-width": ["interpolate", ["linear"], ["zoom"], 15, 0.1, 18, 3],
+          "line-dasharray": [2, 3]
+        }
+      },
+      {
+        "id": "edge_tertiary_case",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "一般道路描边",
+          "parent": "edge_tertiary",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 15,
+        "filter": ["==", "rank", "tertiary"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "#252D32",
+          "line-gap-width": ["interpolate", ["linear"], ["zoom"], 15, 0.1, 18, 4]
+        }
+      },
+      {
+        "id": "edge_secondary_case",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "次要道路描边",
+          "parent": "edge_secondary",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 14,
+        "filter": ["==", "rank", "secondary"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "#193344",
+          "line-gap-width": ["interpolate", ["linear"], ["zoom"], 14, 0.1, 18, 4]
+        }
+      },
+      {
+        "id": "edge_primary_case",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "主要道路描边",
+          "parent": "edge_primary",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 11,
+        "filter": ["==", "rank", "primary"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "#193344",
+          "line-gap-width": ["interpolate", ["linear"], ["zoom"], 11, 0.1, 18, 12]
+        }
+      },
+      {
+        "id": "edge_provincial_case",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "省道描边",
+          "parent": "edge_provincial",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 9,
+        "filter": ["==", "rank", "provincial"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "#1D3A4A",
+          "line-gap-width": ["interpolate", ["linear"], ["zoom"], 9, 0.1, 18, 13]
+        }
+      },
+      {
+        "id": "edge_national_case",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "国道描边",
+          "parent": "edge_national",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 7,
+        "filter": ["==", "rank", "national"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(24, 56, 78, 1)",
+          "line-gap-width": ["interpolate", ["linear"], ["zoom"], 7, 0.1, 18, 13]
+        }
+      },
+      {
+        "id": "edge_footway",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "步行道路",
+          "parent": "道路",
+          "level": 2,
+          "children": ["edge_footway_case", "edge_footway_name"]
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 16,
+        "filter": ["==", "kind", "footway"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "#FFFFFF",
+          "line-opacity": 1,
+          "line-width": ["interpolate", ["linear"], ["zoom"], 15, 0.1, 18, 2]
+        }
+      },
+      {
+        "id": "edge_service",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "目的地道路",
+          "parent": "道路",
+          "level": 2,
+          "children": ["edge_service_case", "edge_service_name"]
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 15,
+        "filter": ["==", "rank", "service"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "#243847",
+          "line-opacity": 1,
+          "line-width": ["interpolate", ["linear"], ["zoom"], 15, 0.1, 18, 3]
+        }
+      },
+      {
+        "id": "edge_tertiary",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "一般道路",
+          "parent": "道路",
+          "level": 2,
+          "children": ["edge_tertiary_case", "edge_tertiary_name"]
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 15,
+        "filter": ["==", "rank", "tertiary"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "#193344",
+          "line-opacity": 1,
+          "line-width": ["interpolate", ["linear"], ["zoom"], 15, 0.1, 18, 4]
+        }
+      },
+      {
+        "id": "edge_secondary",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "次要道路",
+          "parent": "道路",
+          "level": 2,
+          "children": ["edge_secondary_case", "edge_secondary_name"]
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 14,
+        "filter": ["==", "rank", "secondary"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "#193344",
+          "line-opacity": 1,
+          "line-width": ["interpolate", ["linear"], ["zoom"], 14, 0.1, 18, 5]
+        }
+      },
+      {
+        "id": "edge_primary",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "主要道路",
+          "parent": "道路",
+          "level": 2,
+          "children": ["edge_primary_case", "edge_primary_name"]
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 11,
+        "filter": ["==", "rank", "primary"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "#193344",
+          "line-opacity": 1,
+          "line-width": ["interpolate", ["linear"], ["zoom"], 11, 0.1, 18, 12]
+        }
+      },
+      {
+        "id": "edge_provincial",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "省道",
+          "parent": "道路",
+          "level": 2,
+          "children": ["edge_provincial_case", "edge_provincial_name"]
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 9,
+        "filter": ["==", "rank", "provincial"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "#1D3A4A",
+          "line-opacity": 1,
+          "line-width": ["interpolate", ["linear"], ["zoom"], 9, 0.1, 18, 13]
+        }
+      },
+      {
+        "id": "edge_national",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "国道",
+          "parent": "道路",
+          "level": 2,
+          "children": ["edge_national_case", "edge_national_name"]
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 7,
+        "filter": ["==", "rank", "national"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(40, 78, 103, 1)",
+          "line-opacity": 1,
+          "line-width": ["interpolate", ["linear"], ["zoom"], 7, 0.1, 18, 13]
+        }
+      },
+      {
+        "id": "edge_motorway_case",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "高速公路描边",
+          "parent": "edge_motorway",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 6,
+        "filter": ["==", "rank", "motorway"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(24, 56, 78, 1)",
+          "line-gap-width": ["interpolate", ["linear"], ["zoom"], 6, 0.1, 17, 13]
+        }
+      },
+      {
+        "id": "edge_motorway",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "高速公路",
+          "parent": "道路",
+          "level": 2,
+          "children": ["edge_motorway_case", "edge_motorway_name"]
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 6,
+        "filter": ["==", "rank", "motorway"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(40, 78, 103, 1)",
+          "line-opacity": 1,
+          "line-width": ["interpolate", ["linear"], ["zoom"], 6, 0.1, 17, 13]
+        }
+      },
+      {
+        "id": "edge_expressway_case",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "城市环线描边",
+          "parent": "edge_expressway",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 8,
+        "filter": ["==", "rank", "expressway"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(24, 56, 78, 1)",
+          "line-gap-width": ["interpolate", ["linear"], ["zoom"], 7, 0.1, 17, 12]
+        }
+      },
+      {
+        "id": "edge_expressway",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "城市环线",
+          "parent": "道路",
+          "level": 2,
+          "children": ["edge_expressway_case", "edge_expressway_name"]
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 8,
+        "filter": ["==", "rank", "expressway"],
+        "layout": {
+          "line-cap": "round",
+          "line-join": "round",
+          "visibility": "visible"
+        },
+        "paint": {
+          "line-color": "rgba(40, 78, 103, 1)",
+          "line-opacity": 1,
+          "line-width": ["interpolate", ["linear"], ["zoom"], 7, 0.1, 17, 12]
+        }
+      },
+      {
+        "id": "edge_ferry_dasharray",
+        "type": "line",
+        "metadata": {"wayzEditor:comment": "轮渡", "parent": "轨道线路", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 10,
+        "filter": ["==", "kind", "ferry"],
+        "layout": {"visibility": "visible"},
+        "paint": {"line-color": "#5F8DB3", "line-dasharray": [1, 1]}
+      },
+      {
+        "id": "transitline_subway_bg",
+        "type": "line",
+        "metadata": {
+          "wayzEditor:comment": "地铁设施",
+          "parent": "轨道线路",
+          "level": 2,
+          "children": ["transitline_subway_name"]
+        },
+        "source": "wayz_vector",
+        "source-layer": "transitline",
+        "minzoom": 11,
+        "filter": ["==", "kind", "subway"],
+        "layout": {"line-cap": "round", "visibility": "visible"},
+        "paint": {
+          "line-color": "#BED9A4",
+          "line-blur": 1,
+          "line-width": ["interpolate", ["linear"], ["zoom"], 11, 1.5, 18, 4]
+        }
+      },
+      {
+        "id": "building",
+        "type": "fill-extrusion",
+        "metadata": {"wayzEditor:comment": "建筑物", "parent": "建筑物", "level": 1},
+        "source": "wayz_vector",
+        "source-layer": "building",
+        "minzoom": 13,
+        "layout": {"visibility": "visible"},
+        "paint": {
+          "fill-extrusion-color": "#407797",
+          "fill-extrusion-height": ["get", "height"],
+          "fill-extrusion-base": 0,
+          "fill-extrusion-opacity": 0.7
+        }
+      },
+      {
+        "id": "transitline_subway_name",
+        "type": "symbol",
+        "metadata": {
+          "wayzEditor:comment": "地铁名称",
+          "parent": "transitline_subway_bg",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "transitline",
+        "minzoom": 12,
+        "filter": ["==", "kind", "subway"],
+        "layout": {
+          "text-field": "{name}",
+          "symbol-placement": "line",
+          "symbol-spacing": 250,
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 9,
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#4A5357"}
+      },
+      {
+        "id": "transitline_railway_name",
+        "type": "symbol",
+        "metadata": {
+          "wayzEditor:comment": "铁路名称",
+          "parent": "transitline_railway_bg",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "transitline",
+        "minzoom": 10,
+        "filter": ["==", "kind", "railway"],
+        "layout": {
+          "text-field": "{name}",
+          "symbol-placement": "line",
+          "symbol-spacing": 250,
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 9,
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#6F777A"}
+      },
+      {
+        "id": "edge_footway_name",
+        "type": "symbol",
+        "metadata": {
+          "wayzEditor:comment": "步行道路名称",
+          "parent": "edge_footway",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 16,
+        "filter": ["==", "rank", "footway"],
+        "layout": {
+          "text-field": "{name}",
+          "symbol-placement": "line",
+          "symbol-spacing": 250,
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 9,
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#90816F"}
+      },
+      {
+        "id": "edge_service_name",
+        "type": "symbol",
+        "metadata": {
+          "wayzEditor:comment": "出入目的地道路名称",
+          "parent": "edge_service",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 15,
+        "filter": ["==", "rank", "service"],
+        "layout": {
+          "text-field": "{name}",
+          "symbol-placement": "line",
+          "symbol-spacing": 250,
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 9,
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#90816F"}
+      },
+      {
+        "id": "edge_tertiary_name",
+        "type": "symbol",
+        "metadata": {
+          "wayzEditor:comment": "一般道路名称",
+          "parent": "edge_tertiary",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 15,
+        "filter": ["==", "rank", "tertiary"],
+        "layout": {
+          "text-field": "{name}",
+          "symbol-placement": "line",
+          "symbol-spacing": 250,
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 9,
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#90816F"}
+      },
+      {
+        "id": "edge_secondary_name",
+        "type": "symbol",
+        "metadata": {
+          "wayzEditor:comment": "次要道路名称",
+          "parent": "edge_secondary",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 14,
+        "filter": ["==", "rank", "secondary"],
+        "layout": {
+          "text-field": "{name}",
+          "symbol-placement": "line",
+          "symbol-spacing": 250,
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 9,
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#90816F"}
+      },
+      {
+        "id": "edge_primary_name",
+        "type": "symbol",
+        "metadata": {
+          "wayzEditor:comment": "主要道路名称",
+          "parent": "edge_primary",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 11,
+        "filter": ["==", "rank", "primary"],
+        "layout": {
+          "text-field": "{name}",
+          "symbol-placement": "line",
+          "symbol-spacing": 250,
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 9,
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#90816F"}
+      },
+      {
+        "id": "edge_provincial_name",
+        "type": "symbol",
+        "metadata": {
+          "wayzEditor:comment": "省道名称",
+          "parent": "edge_provincial",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 9,
+        "filter": ["==", "rank", "provincial"],
+        "layout": {
+          "text-field": "{name}",
+          "symbol-placement": "line",
+          "symbol-spacing": 250,
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 9,
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#876D18"}
+      },
+      {
+        "id": "edge_national_name",
+        "type": "symbol",
+        "metadata": {
+          "wayzEditor:comment": "国道名称",
+          "parent": "edge_national",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 7,
+        "filter": ["==", "rank", "national"],
+        "layout": {
+          "text-field": "{name}",
+          "symbol-placement": "line",
+          "symbol-spacing": 250,
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 9,
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "rgba(32, 113, 172, 1)"}
+      },
+      {
+        "id": "edge_motorway_name",
+        "type": "symbol",
+        "metadata": {
+          "wayzEditor:comment": "高速公路名称",
+          "parent": "edge_motorway",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 12,
+        "filter": ["==", "rank", "motorway"],
+        "layout": {
+          "text-field": "{name}",
+          "symbol-placement": "line",
+          "symbol-spacing": 250,
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 9,
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "rgba(32, 113, 172, 1)"}
+      },
+      {
+        "id": "edge_expressway_name",
+        "type": "symbol",
+        "metadata": {
+          "wayzEditor:comment": "城市环线名称",
+          "parent": "edge_expressway",
+          "level": 3
+        },
+        "source": "wayz_vector",
+        "source-layer": "edge",
+        "minzoom": 8,
+        "filter": ["==", "rank", "expressway"],
+        "layout": {
+          "text-field": "{name}",
+          "symbol-placement": "line",
+          "symbol-spacing": 250,
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 9,
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "rgba(32, 113, 172, 1)"}
+      },
+      {
+        "id": "admin_country_name",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "国家", "parent": "行政标注", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 1,
+        "maxzoom": 4,
+        "filter": ["==", "category_id", 200101],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 20,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#C76A79"}
+      },
+      {
+        "id": "admin_capital_name",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "国家首都", "parent": "行政标注", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 4,
+        "maxzoom": 11,
+        "filter": ["==", "category_id", 200107],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 14,
+          "text-offset": [0, 0],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#4FA4A1"}
+      },
+      {
+        "id": "admin_province_name",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "省名", "parent": "行政标注", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 4,
+        "maxzoom": 11,
+        "filter": ["==", "category_id", 200102],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 14,
+          "text-offset": [0, 0],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#4FA4A1"}
+      },
+      {
+        "id": "admin_city_name",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "城市", "parent": "行政标注", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 6,
+        "maxzoom": 11,
+        "filter": ["in", "category_id", 200103, 200108],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 12,
+          "text-offset": [0, 0],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#4FA4A1"}
+      },
+      {
+        "id": "admin_district_name",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "区县", "parent": "行政标注", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 8,
+        "maxzoom": 14,
+        "filter": ["==", "category_id", 200104],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 11,
+          "text-offset": [0, 0],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#278481"}
+      },
+      {
+        "id": "admin_township_name",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "乡镇", "parent": "行政标注", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 10,
+        "maxzoom": 14,
+        "filter": ["==", "category_id", 200105],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 11,
+          "text-offset": [0, 0],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#6E6C6A"}
+      },
+      {
+        "id": "admin_village_name",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "村庄", "parent": "行政标注", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 12,
+        "filter": ["==", "category_id", 200106],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 11,
+          "text-offset": [0, 0],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#979593"}
+      },
+      {
+        "id": "entity_island_name",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "岛屿名称", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 3,
+        "filter": ["==", "category_id", 200202],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 11,
+          "text-offset": [0, 0],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#4C4C4C"}
+      },
+      {
+        "id": "entity_mountain_name",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "山脉名称", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 4,
+        "filter": ["==", "category_id", 200201],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 11,
+          "text-offset": [0, 0],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#827e7e"}
+      },
+      {
+        "id": "entity_natural_resources_name",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "自然资源", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": ["==", "category_id", 200203],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 11,
+          "text-offset": [0, 0],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#827e7e"}
+      },
+      {
+        "id": "entity_specific_area_name",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "特定区域", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 3,
+        "filter": ["==", "category_id", 200300],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "text-size": 11,
+          "text-offset": [0, 0],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#827e7e"}
+      },
+      {
+        "id": "entity_government",
+        "type": "symbol",
+        "metadata": {
+          "wayzEditor:comment": "政府机构及社会",
+          "parent": "兴趣点",
+          "level": 2
+        },
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": [
+          "all",
+          [">=", "category_id", 100000],
+          ["<", "category_id", 110000]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#B4CAAC"}
+      },
+      {
+        "id": "entity_hotel",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "酒店住宿", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": [
+          "all",
+          [">=", "category_id", 10000],
+          ["<", "category_id", 10200]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#4D4E51"}
+      },
+      {
+        "id": "entity_residential",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "住宅", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": [
+          "all",
+          [">=", "category_id", 10200],
+          ["<", "category_id", 20000]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#4D4E51"}
+      },
+      {
+        "id": "entity_business",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "企业商务", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": [
+          "all",
+          [">=", "category_id", 20000],
+          ["<", "category_id", 30000]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#62a8a9"}
+      },
+      {
+        "id": "entity_food",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "餐饮", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": [
+          "all",
+          [">=", "category_id", 30000],
+          ["<", "category_id", 40000]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#6a6e71"}
+      },
+      {
+        "id": "entity_shop",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "购物", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": [
+          "all",
+          [">=", "category_id", 40000],
+          ["<", "category_id", 50000]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#626467"}
+      },
+      {
+        "id": "entity_transportation",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "交通出行", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 14,
+        "filter": [
+          "all",
+          [">=", "category_id", 50000],
+          ["<", "category_id", 51100]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#626467"}
+      },
+      {
+        "id": "entity_car_service",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "汽车服务", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": [
+          "all",
+          [">=", "category_id", 51100],
+          ["<", "category_id", 51500]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#626467"}
+      },
+      {
+        "id": "entity_motorcycle_service",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "摩托车服务", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": ["==", "category_id", 51500],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#626467"}
+      },
+      {
+        "id": "entity_financial",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "金融保险", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": [
+          "all",
+          [">=", "category_id", 60100],
+          ["<", "category_id", 60200]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#626467"}
+      },
+      {
+        "id": "entity_life_services",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "生活服务", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": [
+          "any",
+          ["all", [">=", "category_id", 60000], ["<", "category_id", 60100]],
+          ["all", [">=", "category_id", 60200], ["<", "category_id", 70000]]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#626467"}
+      },
+      {
+        "id": "entity_scenic_sports",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "风景名胜", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": [
+          "all",
+          [">=", "category_id", 70700],
+          ["<", "category_id", 70900]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#4FA4A1"}
+      },
+      {
+        "id": "entity_leisure_sports",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "休闲体育", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": [
+          "any",
+          ["all", [">=", "category_id", 70000], ["<", "category_id", 70700]],
+          ["all", [">=", "category_id", 70900], ["<", "category_id", 80000]]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#626467"}
+      },
+      {
+        "id": "entity_science_culture",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "科教文化", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": [
+          "all",
+          [">=", "category_id", 80000],
+          ["<", "category_id", 90000]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#626467"}
+      },
+      {
+        "id": "entity_healthcare",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "健康医疗保健", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 11,
+        "filter": [
+          "all",
+          [">=", "category_id", 90000],
+          ["<", "category_id", 100000]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#4D4E51"}
+      },
+      {
+        "id": "entity_public_facilities",
+        "type": "symbol",
+        "metadata": {"wayzEditor:comment": "公共设施", "parent": "兴趣点", "level": 2},
+        "source": "wayz_vector",
+        "source-layer": "entity",
+        "minzoom": 15,
+        "filter": [
+          "all",
+          [">=", "category_id", 110000],
+          ["<", "category_id", 120000]
+        ],
+        "layout": {
+          "text-field": "{name}",
+          "text-font": ["Microsoft YaHei Regular"],
+          "icon-image": "50150700",
+          "icon-size": 0.7,
+          "text-size": 11,
+          "text-offset": [0, 0.2],
+          "text-anchor": "top",
+          "visibility": "visible"
+        },
+        "paint": {"text-color": "#4D4E51"}
+      }
+    ],
+    "id": "qi0vb3dz3"
+  }

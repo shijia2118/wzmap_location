@@ -1,0 +1,53 @@
+group 'com.example.wzmap_location'
+version '1.0'
+
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://api.mapbox.com/downloads/v2/releases/maven' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://repo.huaweicloud.com/repository/maven' }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.0'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://api.mapbox.com/downloads/v2/releases/maven' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://repo.huaweicloud.com/repository/maven' }
+
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 19
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+}
+
+dependencies {
+
+    implementation files("libs/wayz-sdk-android-5.5.0.jar")
+    implementation 'pub.devrel:easypermissions:3.0.0'
+//    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.0.1'
+
+}
