@@ -1,0 +1,28 @@
+PODS:
+  - Flutter (1.0.0)
+  - shared_preferences (0.0.1):
+    - Flutter
+  - wzmap_location (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - wzmap_location (from `.symlinks/plugins/wzmap_location/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
+  wzmap_location:
+    :path: ".symlinks/plugins/wzmap_location/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  shared_preferences: 47eaded4d5dc0bb45e04e66ce0b93ce876aff8a1
+  wzmap_location: c95eaf618a64b7ebc0e4504579ac84665ff53a24
+
+PODFILE CHECKSUM: f76c59c7a7d344aa4889a63eb579949137355379
+
+COCOAPODS: 1.16.2
