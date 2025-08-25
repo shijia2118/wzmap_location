@@ -1,0 +1,11 @@
+framework module wzLib {
+  umbrella header "wzLib.h"
+
+  export *
+  module * { export * }
+}
+
+module wzLib.Swift {
+  header "wzLib-Swift.h"
+  requires objc
+}
