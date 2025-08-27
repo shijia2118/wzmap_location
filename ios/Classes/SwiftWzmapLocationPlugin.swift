@@ -32,7 +32,7 @@ public class SwiftWzmapLocationPlugin: NSObject, FlutterPlugin, LocationDelegate
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "startLocation":
-            wzClientOption?.isLocateOnce = true
+            wzClientOption?.isLocateOnce = false
             wzClientOption?.startLocation()
             result("定位开始")
             
@@ -50,31 +50,11 @@ public class SwiftWzmapLocationPlugin: NSObject, FlutterPlugin, LocationDelegate
         let detail = wzLocation.location
         
         var locationData: [String: Any] = [
-            "id": wzLocation.id,
-            "asset": wzLocation.asset,
-            "timestamp": detail.timestamp,
-            "latitude": detail.position.point.latitude,
-            "longitude": detail.position.point.longitude
-        ]
-        
-        // address
-        if let addr = detail.address {
-            locationData["address_name"] = addr.name
-            locationData["address_context"] = addr.context.map { ctx in
-                [
-                    "type": ctx.type,
-                    "name": ctx.name,
-                    "code": ctx.code
-                ]
-            }
-        }
-        
-        // place
-        if let place = detail.place {
-            locationData["place_name"] = place.name
-            locationData["place_type"] = place.type
-            locationData["place_distance"] = place.distance.line
-        }
+                "latitude": detail.position.point.latitude,
+                "longitude": detail.position.point.longitude,
+                "address": detail.address?.name ?? "",
+                "placeName": detail.place?.name ?? ""
+            ]
         
         channel?.invokeMethod("onLocationChanged", arguments: locationData)
     }
