@@ -15,6 +15,7 @@ import io.flutter.embedding.engine.plugins.shim.ShimPluginRegistry;
 public final class GeneratedPluginRegistrant {
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
     ShimPluginRegistry shimPluginRegistry = new ShimPluginRegistry(flutterEngine);
+    flutterEngine.getPlugins().add(new com.baseflow.permissionhandler.PermissionHandlerPlugin());
     flutterEngine.getPlugins().add(new io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin());
       com.example.wzmap_location.WzmapLocationPlugin.registerWith(shimPluginRegistry.registrarFor("com.example.wzmap_location.WzmapLocationPlugin"));
   }

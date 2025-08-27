@@ -45,9 +45,7 @@ class WzmapLocation {
 
             onLocation(location);
 
-            if(Platform.isAndroid){
-              stopLocation();
-            }
+            stopLocation();
 
           }
           break;

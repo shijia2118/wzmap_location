@@ -35,8 +35,18 @@ class WzMapViewState extends State<WzMapView> {
         creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: _onPlatformViewCreated,
       );
-    }
-    return Text("地图仅支持 Android");
+    }else if (defaultTargetPlatform == TargetPlatform.iOS) {
+    return UiKitView(
+      viewType: 'wzmap_view', // iOS 端注册的 viewType 必须一样
+      creationParams: {
+        "mapType": widget.mapType,
+      },
+      creationParamsCodec: const StandardMessageCodec(),
+      onPlatformViewCreated: _onPlatformViewCreated,
+    );
+  }
+
+  return Text("地图仅支持 Android 和 iOS");
   }
 
   void _onPlatformViewCreated(int id) {

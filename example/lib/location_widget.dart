@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:wzmap_location/wzmap_location.dart';
+import 'package:wzmap_location_example/permission_util.dart';
 
 import 'location_page.dart';
 
@@ -25,18 +26,25 @@ class _LocationWidgetState extends State<LocationWidget> {
     super.initState();
   }
 
+  
   _getLocation() async {
-    await WzmapLocation.startLocation(onLocation: (location){
 
-      setState(() {
-        _location = location.address;
-      });
+    await PermissionUtil.location(context,action: () async{
 
-    }, onError: (error){
-      print('>>>>>>>>>>>location error:$error');
-    },
-    );
+      await WzmapLocation.startLocation(onLocation: (location){
 
+        print(location);
+
+        setState(() {
+          _location = location.address;
+        });
+
+      },
+        onError: (error){
+          print('>>>>>>>>>>>location error:$error');
+        },
+      );
+    },);
   }
 
   @override
@@ -64,7 +72,7 @@ class _LocationWidgetState extends State<LocationWidget> {
             Container(
               width: 182,
               child: Text(
-                _location ?? '温州鹿城区绣山路321号温州市政府',
+                _location==null||_location.isEmpty ? '温州鹿城区绣山路321号温州市政府':_location,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: TextStyle(color: Colors.black, fontSize: 14),
