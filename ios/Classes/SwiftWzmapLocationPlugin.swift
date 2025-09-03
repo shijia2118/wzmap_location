@@ -58,21 +58,28 @@ public class SwiftWzmapLocationPlugin: NSObject, FlutterPlugin, CLLocationManage
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(location) { placemarks, error in
             if let placemark = placemarks?.first {
-                // 直接取 name，就是完整的格式化地址
-                let address = placemark.name ?? ""
-                let placeName = placemark.name ?? ""  // 如果 placeName 就是显示名，可以复用
-
+                let province = placemark.administrativeArea ?? ""
+                let city = placemark.locality ?? ""
+                let district = placemark.subLocality ?? ""
+                let street = placemark.thoroughfare ?? ""
+                let number = placemark.subThoroughfare ?? ""  // 门牌号
+                
+                // ✅ address 拼接（无空格）
+                let address = [province, city, district, street + number]
+                    .filter { !$0.isEmpty }
+                    .joined()
+                
                 var locationData: [String: Any] = [
                     "latitude": location.coordinate.latitude,
                     "longitude": location.coordinate.longitude,
                     "altitude": location.altitude,
                     "speed": location.speed,
-                    "address": address,
-                    "placeName": placeName,
-                    "province": placemark.administrativeArea ?? "",
-                    "city": placemark.locality ?? "",
-                    "district": placemark.subLocality ?? "",
-                    "street": placemark.thoroughfare ?? "",
+                    "address": address,                // 浙江省杭州市临安区锦北街道苕溪北路1号
+                    "placeName": placemark.name ?? "", // 维持原来的逻辑
+                    "province": province,
+                    "city": city,
+                    "district": district,
+                    "street": street,
                     "cityCode": "",   // iOS 没有 cityCode
                     "adCode": ""      // iOS 没有 adCode
                 ]
@@ -82,6 +89,7 @@ public class SwiftWzmapLocationPlugin: NSObject, FlutterPlugin, CLLocationManage
                 self.channel?.invokeMethod("onLocationError", arguments: ["message": error.localizedDescription])
             }
         }
+
 
     }
 
