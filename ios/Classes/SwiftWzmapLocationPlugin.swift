@@ -57,45 +57,32 @@ public class SwiftWzmapLocationPlugin: NSObject, FlutterPlugin, CLLocationManage
         
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(location) { placemarks, error in
-            var address = ""
-            var placeName = ""
-            var country = ""
-            var province = ""
-            var city = ""
-            var district = ""
-            var street = ""
-            
             if let placemark = placemarks?.first {
-                placeName = placemark.name ?? ""
-                country = placemark.country ?? ""
-                province = placemark.administrativeArea ?? ""
-                city = placemark.locality ?? ""
-                district = placemark.subLocality ?? ""
-                street = placemark.thoroughfare ?? ""
+                // 直接取 name，就是完整的格式化地址
+                let address = placemark.name ?? ""
+                let placeName = placemark.name ?? ""  // 如果 placeName 就是显示名，可以复用
+
+                var locationData: [String: Any] = [
+                    "latitude": location.coordinate.latitude,
+                    "longitude": location.coordinate.longitude,
+                    "altitude": location.altitude,
+                    "speed": location.speed,
+                    "address": address,
+                    "placeName": placeName,
+                    "province": placemark.administrativeArea ?? "",
+                    "city": placemark.locality ?? "",
+                    "district": placemark.subLocality ?? "",
+                    "street": placemark.thoroughfare ?? "",
+                    "cityCode": "",   // iOS 没有 cityCode
+                    "adCode": ""      // iOS 没有 adCode
+                ]
                 
-                // 拼接一个完整地址
-                address = [country, province, city, district, street].filter { !$0.isEmpty }.joined(separator: " ")
+                self.channel?.invokeMethod("onLocationChanged", arguments: locationData)
+            } else if let error = error {
+                self.channel?.invokeMethod("onLocationError", arguments: ["message": error.localizedDescription])
             }
-            
-            let locationData: [String: Any] = [
-                "latitude": latitude,
-                "longitude": longitude,
-                "altitude": altitude,
-                "speed": speed,
-                "bearing": bearing,
-                "address": address,
-                "placeName": placeName,
-                "country": country,
-                "province": province,
-                "city": city,
-                "cityCode": "",  // iOS 无法提供
-                "adCode": "",    // iOS 无法提供
-                "district": district,
-                "street": street
-            ]
-            
-            self.channel?.invokeMethod("onLocationChanged", arguments: locationData)
         }
+
     }
 
     
