@@ -45,13 +45,6 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>是否允许使用您的定位？</string>
 
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-<string>我们需要在后台持续获取您的位置以便提供相关功能</string>
-
-<key>UIBackgroundModes</key>
-<array>
-    <string>location</string>
-</array>
 	
 </dict>
 </plist>

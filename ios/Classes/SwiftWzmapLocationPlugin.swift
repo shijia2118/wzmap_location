@@ -1,19 +1,18 @@
 import Flutter
 import UIKit
-import wzLib
+import CoreLocation
 
-public class SwiftWzmapLocationPlugin: NSObject, FlutterPlugin, LocationDelegate {
+public class SwiftWzmapLocationPlugin: NSObject, FlutterPlugin, CLLocationManagerDelegate {
     
-    var wzClientOption: WzClientLocation?
+    var locationManager: CLLocationManager?
     var channel: FlutterMethodChannel?
     
     override init() {
         super.init()
-        wzClientOption = WzClientLocation()
-        wzClientOption?.setAgreePrivacy(isAgree: true)   // ✅ 改成实例方法调用
-        wzClientOption?.initKey(accesskey: "hGYINWz43i65SaCRUzUgSBmClDD7l2C3")
-        wzClientOption?.callDelegate = self
-    
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.distanceFilter = kCLDistanceFilterNone
     }
     
     // Flutter 插件注册
@@ -23,7 +22,7 @@ public class SwiftWzmapLocationPlugin: NSObject, FlutterPlugin, LocationDelegate
         instance.channel = channel
         registrar.addMethodCallDelegate(instance, channel: channel)
         
-        // 注册 PlatformView
+        // ✅ 保留 PlatformView 注册，后续可扩展地图
         let factory = WzMapViewFactory(messenger: registrar.messenger())
         registrar.register(factory, withId: "wzmap_view")
     }
@@ -32,12 +31,13 @@ public class SwiftWzmapLocationPlugin: NSObject, FlutterPlugin, LocationDelegate
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "startLocation":
-            wzClientOption?.isLocateOnce = false
-            wzClientOption?.startLocation()
+            locationManager?.requestWhenInUseAuthorization()
+            locationManager?.requestLocation() // ✅ 单次定位
             result("定位开始")
             
         case "stopLocation":
-            wzClientOption?.stopLocation()
+            // 单次定位其实不需要 stop，这里只是保留接口
+            locationManager?.stopUpdatingLocation()
             result("定位停止")
             
         default:
@@ -45,51 +45,70 @@ public class SwiftWzmapLocationPlugin: NSObject, FlutterPlugin, LocationDelegate
         }
     }
     
-    // MARK: - 定位回调
-    public func onReceivedLocation(wzLocation: wzLib.LocationRes) {
-        let detail = wzLocation.location
+    // MARK: - CLLocationManagerDelegate
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
         
-        var locationData: [String: Any] = [
-                "latitude": detail.position.point.latitude,
-                "longitude": detail.position.point.longitude,
-                "address": detail.address?.name ?? "",
-                "placeName": detail.place?.name ?? ""
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+        let altitude = location.altitude
+        let speed = location.speed >= 0 ? location.speed : 0.0
+        let bearing = location.course >= 0 ? location.course : 0.0
+        
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+            var address = ""
+            var placeName = ""
+            var country = ""
+            var province = ""
+            var city = ""
+            var district = ""
+            var street = ""
+            
+            if let placemark = placemarks?.first {
+                placeName = placemark.name ?? ""
+                country = placemark.country ?? ""
+                province = placemark.administrativeArea ?? ""
+                city = placemark.locality ?? ""
+                district = placemark.subLocality ?? ""
+                street = placemark.thoroughfare ?? ""
+                
+                // 拼接一个完整地址
+                address = [country, province, city, district, street].filter { !$0.isEmpty }.joined(separator: " ")
+            }
+            
+            let locationData: [String: Any] = [
+                "latitude": latitude,
+                "longitude": longitude,
+                "altitude": altitude,
+                "speed": speed,
+                "bearing": bearing,
+                "address": address,
+                "placeName": placeName,
+                "country": country,
+                "province": province,
+                "city": city,
+                "cityCode": "",  // iOS 无法提供
+                "adCode": "",    // iOS 无法提供
+                "district": district,
+                "street": street
             ]
-        
-        channel?.invokeMethod("onLocationChanged", arguments: locationData)
-    }
-    
-    public func onLocationError(msg: String) {
-        channel?.invokeMethod("onLocationError", arguments: ["message": msg])
-    }
-    
-    public func onReceivedGeocode(result: [wzLib.GeocodeRes]) {
-        let data = result.map { geo in
-            [
-                "id": geo.id,
-                "name": geo.name,
-                "type": geo.type,
-                "code": geo.code,
-                "relevance": geo.relevance,
-                "distance": geo.distance,
-                "geoPoint": geo.geoPoint
-            ] as [String: Any]
+            
+            self.channel?.invokeMethod("onLocationChanged", arguments: locationData)
         }
-        channel?.invokeMethod("onGeocodeResult", arguments: data)
+    }
+
+    
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        channel?.invokeMethod("onLocationError", arguments: ["message": error.localizedDescription])
     }
     
-    public func onReceivedPoiSearch(result: [wzLib.GeocodeRes]) {
-        let data = result.map { poi in
-            [
-                "id": poi.id,
-                "name": poi.name,
-                "type": poi.type,
-                "code": poi.code,
-                "relevance": poi.relevance,
-                "distance": poi.distance,
-                "geoPoint": poi.geoPoint
-            ] as [String: Any]
-        }
-        channel?.invokeMethod("onPoiSearchResult", arguments: data)
+    // MARK: - 占位方法（保持接口不报错）
+    public func onReceivedGeocode(result: [Any]) {
+        channel?.invokeMethod("onGeocodeResult", arguments: [])
+    }
+    
+    public func onReceivedPoiSearch(result: [Any]) {
+        channel?.invokeMethod("onPoiSearchResult", arguments: [])
     }
 }

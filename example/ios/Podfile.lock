@@ -27,7 +27,7 @@ SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   permission_handler: de3d09f293f63be483553e6d0b489f26f21b6b12
   shared_preferences: 47eaded4d5dc0bb45e04e66ce0b93ce876aff8a1
-  wzmap_location: be96f327787b1eab1dd7d2a0fcab24ae3f3d372c
+  wzmap_location: 1ad90cb507b236d95e55f4f18c7be16ef13f7c76
 
 PODFILE CHECKSUM: f76c59c7a7d344aa4889a63eb579949137355379
 
